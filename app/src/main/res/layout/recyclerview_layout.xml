@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/img"
+    android:orientation="vertical"
+    android:id="@+id/ll_firstscreen_items"
+    >
+    <TextView
+        android:text="주식이름"
+        android:id="@+id/tv_fistscreen_name"
+        android:layout_marginLeft="15dp"
+        android:textSize="15dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_weight="2"
+        android:layout_height="0dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"/>
+    <TextView
+        android:layout_marginLeft="120dp"
+        android:id="@+id/tv_fistscreen_chungyakday"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="청약일"
+        android:textSize="13dp"
+        android:gravity="bottom"
+        android:layout_weight="2"/>
+    <View
+        android:layout_width="match_parent"
+
+        android:layout_height="0dp"
+        android:layout_weight="0.6"/>
+    <TextView
+        android:id="@+id/tv_fistscreen_sangjangday"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="상장일"
+        android:gravity="top"
+        android:textSize="13dp"
+        android:layout_marginLeft="120dp"
+        android:layout_weight="2.5"/>
+
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/firstitem"
+        android:enabled="true"
+        android:icon="@drawable/icons8_check_all"/>
+    <item android:id="@+id/seconditem"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_calendar_today_24"/>
+    <item android:id="@+id/thirditem"
+        android:enabled="true"
+        android:icon="@drawable/icons8_check_all"/>
+
+</menu>
