@@ -56,27 +56,33 @@ class FirstFragment : Fragment(R.layout.fragment_first){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        this.getData { //TODO 콜백(1초)
-            Log.d("1초 후 call back - complete", all_Jusik.toString())
-            all_Jusik_Count = all_Jusik.size
-            getTodayData(parsed_today)
-            Log.d("진짜된건가", today_Jusik.toString())
-        }
-
+        //////views///////
         val view = inflater.inflate(R.layout.fragment_first, null)
         val recyclerView : RecyclerView = view.findViewById(R.id.rv_firstscreen)
-        val adapter1 = RecyclerViewAdapter(mainActivity)
-        adapter1.datas = mDatas
-        mDatas.apply {
-            add(JusikData(name = "이름", chungYakDay= "청약일", sangJangDay = "상장일",companys = "회사들", setPrice = "확정공모가", hopePrice = "희망공모가", detailUrl ="url", refundDay ="환불일"))
-            add(JusikData(name = "이름", chungYakDay = "청약일", sangJangDay = "상장일",companys = "회사들", setPrice = "확정공모가", hopePrice = "희망공모가", detailUrl ="url", refundDay ="환불일"))
 
+
+
+
+        this.getData { //TODO 콜백(1초)
+
+            Log.d("1초 후 call back - complete", all_Jusik.toString())
+            all_Jusik_Count = all_Jusik.size
+            getTodayData("2022.02.25")
+            Log.d("Today Jusik 목록", today_Jusik.toString())
+
+            val adapter1 = RecyclerViewAdapter(mainActivity)
+            adapter1.datas = mDatas
+            mDatas.apply {
+                for(i : Int in 0 until today_Jusik.size)
+                    add(today_Jusik[i])
+
+            }
+            recyclerView.adapter = adapter1
+            recyclerView.addItemDecoration(VerticalItemDecorator(20))
+            recyclerView.addItemDecoration(HorizontalItemDecorator(10))
+            adapter1.notifyDataSetChanged()
         }
 
-        recyclerView.adapter = adapter1
-        recyclerView.addItemDecoration(VerticalItemDecorator(20))
-        recyclerView.addItemDecoration(HorizontalItemDecorator(10))
-        adapter1.notifyDataSetChanged()
 
         return view
     }
@@ -121,24 +127,29 @@ class FirstFragment : Fragment(R.layout.fragment_first){
     fun getTodayData(today : String){
         for(i : Int in 0..all_Jusik_Count-1){
             val chungYakDay : String = all_Jusik[i].chungYakDay
+
             Log.d("getTodatData", chungYakDay)
             //TODO 보통 2일인 청약 "기간" 을 두개의 청약일로 변경(오늘에 해당하는지 확인하기 위함)
             //TODO 2022.01.20~01.21 --> 2022.01.20 , 2022.01.21
             val chungYakDay1 : String
             val chungYakDay2 : String
-//            if(chungYakDay.length > 16) {//TODO 중간에 년도가 바뀌는 경우(년도가 두번 들어가서 문자열의 길이가 길어짐)
-//                chungYakDay1 = chungYakDay.substring(0, 9)
-//                chungYakDay2 = chungYakDay.substring(11, 20)
-//            }
-//            else{
-//                chungYakDay1 = chungYakDay.substring(0, 9)
-//                //TODO 년도 + 청약 마지막 날짜
-//                chungYakDay2 = chungYakDay.substring(0, 4) + chungYakDay.substring(11)
-//            }
-//            //TODO 오늘 == 청약기간 or 오늘 == 상장일인 경우
-//            if(chungYakDay1 == today || chungYakDay2 == today || all_Jusik.get(i).sangJangDay == today){
-//                today_Jusik.add(all_Jusik[i]) //TODO 오늘의 주식 배열에 add
-//            }
+            if(chungYakDay.length > 16) {//TODO 중간에 년도가 바뀌는 경우(년도가 두번 들어가서 문자열의 길이가 길어짐)
+                chungYakDay1 = chungYakDay.substring(0, 9)
+                chungYakDay2 = chungYakDay.substring(11, 20)
+            }
+            else{
+                chungYakDay1 = chungYakDay.substring(0, 10) //TODO 청약 첫번째 날
+
+
+                chungYakDay2 = chungYakDay.substring(0, 5) + chungYakDay.substring(11)//TODO 청약 두번쨰 날
+
+            }
+            //TODO 오늘 == 청약기간 or 오늘 == 상장일인 경우
+            if(chungYakDay1 == today || chungYakDay2 == today || all_Jusik[i].sangJangDay.substring(1) == today){
+
+                today_Jusik.add(all_Jusik[i]) //TODO 오늘의 주식 배열에 add
+            }
+
 
         }
 
