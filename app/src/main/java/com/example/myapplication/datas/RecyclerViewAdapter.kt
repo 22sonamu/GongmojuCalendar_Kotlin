@@ -17,9 +17,9 @@ class RecyclerViewAdapter(private val context : Context) : RecyclerView.Adapter<
         private val chungyakday : TextView = itemView.findViewById(R.id.tv_fistscreen_chungyakday)
         private val sangjangday : TextView = itemView.findViewById(R.id.tv_fistscreen_sangjangday)
         fun bind(item : JusikData){
-            name.text = item.Name
-            chungyakday.text = item.ChungYakDay
-            sangjangday.text = item.SangJangDay
+            name.text = item.name
+            chungyakday.text = item.chungYakDay
+            sangjangday.text = item.sangJangDay
         }
     }
 

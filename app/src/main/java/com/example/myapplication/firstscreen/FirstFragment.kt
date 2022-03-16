@@ -38,8 +38,8 @@ class FirstFragment : Fragment(R.layout.fragment_first){
         val adapter1 = RecyclerViewAdapter(mainActivity)
         adapter1.datas = mDatas
         mDatas.apply {
-            add(JusikData(Name = "이름", ChungYakDay = "청약일", SangJangDay = "상장일",Companys = "회사들", SetPrice = "확정공모가", HopePrice = "희망공모가", DatailUrl ="url", RefundDay ="환불일"))
-            add(JusikData(Name = "이름", ChungYakDay = "청약일", SangJangDay = "상장일",Companys = "회사들", SetPrice = "확정공모가", HopePrice = "희망공모가", DatailUrl ="url", RefundDay ="환불일"))
+            add(JusikData(name = "이름", chungYakDay= "청약일", sangJangDay = "상장일",companys = "회사들", setPrice = "확정공모가", hopePrice = "희망공모가", detailUrl ="url", refundDay ="환불일"))
+            add(JusikData(name = "이름", chungYakDay = "청약일", sangJangDay = "상장일",companys = "회사들", setPrice = "확정공모가", hopePrice = "희망공모가", detailUrl ="url", refundDay ="환불일"))
 
 
         }
