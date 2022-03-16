@@ -26,7 +26,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.Period
 import kotlin.system.measureTimeMillis
 
 
@@ -67,7 +69,7 @@ class FirstFragment : Fragment(R.layout.fragment_first){
 
             Log.d("1초 후 call back - complete", all_Jusik.toString())
             all_Jusik_Count = all_Jusik.size
-            getTodayData("2022.02.25")
+            getTodayData("2022.02.28")
             Log.d("Today Jusik 목록", today_Jusik.toString())
 
             val adapter1 = RecyclerViewAdapter(mainActivity)
@@ -116,7 +118,7 @@ class FirstFragment : Fragment(R.layout.fragment_first){
                 }
             }
             override fun onFailure(call: Call<MutableList<JusikData>>, t: Throwable) {
-                //TODO 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                //TODO 통신 실패 (인터넷 끊김, 예외 발생 등 시스템적인 이유)
                 Log.d("YMC", "onFailure 에러: " + t.message.toString());
             }
         })
@@ -134,16 +136,32 @@ class FirstFragment : Fragment(R.layout.fragment_first){
             val chungYakDay1 : String
             val chungYakDay2 : String
             if(chungYakDay.length > 16) {//TODO 중간에 년도가 바뀌는 경우(년도가 두번 들어가서 문자열의 길이가 길어짐)
-                chungYakDay1 = chungYakDay.substring(0, 9)
+                chungYakDay1 = chungYakDay.substring(0, 10)
                 chungYakDay2 = chungYakDay.substring(11, 20)
             }
             else{
                 chungYakDay1 = chungYakDay.substring(0, 10) //TODO 청약 첫번째 날
-
-
-                chungYakDay2 = chungYakDay.substring(0, 5) + chungYakDay.substring(11)//TODO 청약 두번쨰 날
-
+                chungYakDay2 = chungYakDay.substring(0, 5) + chungYakDay.substring(11)//TODO 청약 마지막 날
             }
+            //TODO 가끔 청약일이 3일 이상인 공모주 날짜계산
+            val chungYakDay1_todate : LocalDate  = LocalDate.parse(chungYakDay1.replace(".", "-"))
+            val chungYakDay2_todate : LocalDate  = LocalDate.parse(chungYakDay2.replace(".", "-"))
+            val today_todate : LocalDate  = LocalDate.parse(today.replace(".", "-"))
+            val period = Period.between(chungYakDay1_todate, chungYakDay2_todate).toString().substring(1, 2)
+
+            if(period.toInt() > 1){
+                if(period.toInt() == 2){ //TODO 청약일이 3일
+                    if(chungYakDay1_todate.plusDays(1) == today_todate){
+                        today_Jusik.add(all_Jusik[i])
+                    }
+                }
+                if(period.toInt() == 3){ //TODO 청약일이 4일
+                    if(chungYakDay1_todate.plusDays(1) == today_todate || chungYakDay1_todate.plusDays(2) == today_todate){
+                        today_Jusik.add(all_Jusik[i])
+                    }
+                }
+            }
+
             //TODO 오늘 == 청약기간 or 오늘 == 상장일인 경우
             if(chungYakDay1 == today || chungYakDay2 == today || all_Jusik[i].sangJangDay.substring(1) == today){
 
@@ -154,6 +172,8 @@ class FirstFragment : Fragment(R.layout.fragment_first){
         }
 
     }
+
+
 
 
 
