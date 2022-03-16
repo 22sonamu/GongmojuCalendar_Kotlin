@@ -31,7 +31,7 @@ import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.xml.parsers.DocumentBuilderFactory
 import okhttp3.internal.http.HttpHeaders as HttpHeaders1
-
+val a = mutableListOf<JusikData>()
 class MainActivity : AppCompatActivity() {
     private val fl:FrameLayout by lazy{
         findViewById(R.id.fl_)
@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                 if(response.isSuccessful){
                     // 정상적으로 통신이 성고된 경우
                     var result: JusikData? = response.body()
+
                     Log.d("YMC", "onResponse 성공: " + result?.toString());
                 }else{
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
@@ -100,22 +101,25 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        service.getJusikPageall()?.enqueue(object : Callback<ArrayList<JusikData>>{
+        service.getJusikPageall()?.enqueue(object : Callback<MutableList<JusikData>>{
             override fun onResponse(
-                call: Call<ArrayList<JusikData>>,
-                response: Response<ArrayList<JusikData>>
+                call: Call<MutableList<JusikData>>,
+                response: Response<MutableList<JusikData>>
             ) {
                 if(response.isSuccessful){
                     // 정상적으로 통신이 성고된 경우
-                    var result: ArrayList<JusikData>? = response.body()
-                    Log.d("YMC", "onResponse 성공: " + result?.toString());
+                    var result: MutableList<JusikData>? = response.body()
+                    //Log.d("YMC", "onResponse 성공: " + result?.toString());
+                    if (result != null) {
+                        a.addAll(result)
+                    }
                 }else{
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("YMC", "onResponse 실패")
                 }
             }
 
-            override fun onFailure(call: Call<ArrayList<JusikData>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<JusikData>>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("YMC", "onFailure 에러: " + t.message.toString());
             }
