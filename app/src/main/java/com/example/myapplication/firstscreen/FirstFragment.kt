@@ -2,6 +2,7 @@ package com.example.myapplication.firstscreen
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -43,6 +44,7 @@ class FirstFragment : Fragment(R.layout.fragment_first){
     var all_Jusik_Count = 0
     val today_Jusik = mutableListOf<JusikData>() //TODO 오늘에 관련된 주식 고르기
     var answer  = mutableListOf<JusikData>()
+    lateinit var clickeddatas : JusikData
 
 
 
@@ -76,13 +78,17 @@ class FirstFragment : Fragment(R.layout.fragment_first){
             adapter1.datas = mDatas
             mDatas.apply {
                 for(i : Int in 0 until today_Jusik.size)
-                    add(today_Jusik[i])
+                    add(today_Jusik[i]) //TODO recyclerview에 등록
 
             }
             recyclerView.adapter = adapter1
             recyclerView.addItemDecoration(VerticalItemDecorator(20))
             recyclerView.addItemDecoration(HorizontalItemDecorator(10))
             adapter1.notifyDataSetChanged()
+
+
+
+
         }
 
 
@@ -123,7 +129,7 @@ class FirstFragment : Fragment(R.layout.fragment_first){
             }
         })
         //TODO override fun onResponse 가 항상 마지막에 실행됨 --> Jusik Data가 전역변수에 담기지 않는 문제 발생 --> 콜백 처리
-        Handler().postDelayed({completion()}, 1000L)
+        Handler().postDelayed({completion()}, 100L)
     }
 
     fun getTodayData(today : String){
@@ -172,11 +178,6 @@ class FirstFragment : Fragment(R.layout.fragment_first){
         }
 
     }
-
-
-
-
-
 
 }
 

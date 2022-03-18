@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@android:color/transparent"
+    >
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:background="@drawable/img_dialog"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingTop="30dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="개발하는 쩡대리"
+            android:id="@+id/tv_jusikname"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"/>
+
+
+        <TextView
+            android:id="@+id/tv_chunyakday"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="개발하는 쩡대리"
+            android:textColor="#000"
+            android:gravity="center"
+            android:paddingLeft="100dp"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+        <TextView
+            android:id="@+id/tv_sangjangday"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="개발하는 쩡대리"
+            android:textColor="#000"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:paddingLeft="100dp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+        <TextView
+            android:id="@+id/tv_refundday"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:text="개발하는 쩡대리"
+            android:paddingLeft="100dp"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+        <TextView
+            android:id="@+id/tv_hopeprice"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="개발하는 쩡대리"
+            android:textColor="#000"
+            android:paddingLeft="100dp"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+        <TextView
+            android:id="@+id/tv_setprice"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:text="개발하는 쩡대리"
+            android:paddingLeft="100dp"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+        <TextView
+            android:id="@+id/tv_companys"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="개발하는 쩡대리"
+            android:paddingLeft="100dp"
+            android:textColor="#000"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"/>
+
+
+        <Button
+            android:id="@+id/btn_detailurl"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="상세정보"
+            android:textSize="10dp"
+            android:textColor="@color/white"
+            android:layout_weight="0.95"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
