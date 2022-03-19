@@ -5,9 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <CalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:layout_width="wrap_content"
         android:id="@+id/calendar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        app:mcv_headerTextAppearance="@style/CustomTextAppearance"
+        app:mcv_weekDayTextAppearance="@style/CustomTextAppearance"
+        app:mcv_dateTextAppearance="@style/CustomTextAppearance"
+        android:layout_height="wrap_content"
+        />
+
 
 </LinearLayout>

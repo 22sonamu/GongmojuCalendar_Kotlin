@@ -60,7 +60,7 @@ dependencies {
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 
     //동그라미 뷰
-
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
 
 
 

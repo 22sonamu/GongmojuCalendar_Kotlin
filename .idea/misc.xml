@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.31666666666666665" />
-        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.11854103343465046" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_third.xml" value="0.11854103343465046" />
         <entry key="app/src/main/res/layout/recyclerview_layout.xml" value="0.332337544849581" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.22870370370370371" />
