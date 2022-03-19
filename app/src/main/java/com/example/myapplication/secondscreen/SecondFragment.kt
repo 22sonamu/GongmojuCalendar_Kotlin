@@ -17,17 +17,19 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.coroutines.awaitAll
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDate
+import java.time.Period
 import java.util.*
 import kotlin.collections.HashMap
 
 var all_Jusik = mutableListOf<JusikData>()//TODO api 에서 주식 받아오기
-var hashMap = HashMap<String , LocalDate>() //TODO 날짜 : 주식명
+
 var chungyakdays = mutableListOf<CalendarDay>()
 var sangjangdays = mutableListOf<CalendarDay>()
 
@@ -42,20 +44,17 @@ class SecondFragment : Fragment(R.layout.fragment_second){
 
         val view = inflater.inflate(R.layout.fragment_second, null)
         val calendar = view.findViewById<MaterialCalendarView>(R.id.calendar)
-        val cl = CalendarDay.from(2022, 3, 18)
-        val c_cl = mutableListOf<CalendarDay>()
-        c_cl.add(cl)
 
-        Log.d("color", c_cl.toString())
-
-        calendar.addDecorator(EventDecorator(c_cl, "#78EFAD"))
 
 
         this.getData {
+            //TODO 날짜 : 주식명
+            Log.d("all", all_Jusik.toString())
             setDecorator()
             calendar.addDecorator(EventDecorator(sangjangdays, "#6699FF"))
             calendar.addDecorator(EventDecorator(chungyakdays, "#FF6666"))
-            Log.d("happyhappy", hashMap.toString())
+
+
 
         }
 
@@ -66,11 +65,12 @@ class SecondFragment : Fragment(R.layout.fragment_second){
 
 
     fun setDecorator(){
+        var hashMap = HashMap<String , LocalDate>()
         for(i : Int in 0..all_Jusik.size-1){
 
             val chungYakDay : String = all_Jusik[i].chungYakDay
             if(all_Jusik[i].sangJangDay != "-"){ //TODO 상장일이 없는 주식들은 점을 찍을 필요 없다.
-                val sangJangDay : LocalDate = LocalDate.parse(all_Jusik[i].sangJangDay.substring(1).replace(".", "-")).minusMonths(1)
+                val sangJangDay : LocalDate = LocalDate.parse(all_Jusik[i].sangJangDay.substring(1).replace(".", "-"))
                 val sanJangDay_toCal = localToCal(sangJangDay)
                 hashMap.put(all_Jusik[i].name + "상장일", sangJangDay)
                 sangjangdays.add(sanJangDay_toCal)}
@@ -87,23 +87,61 @@ class SecondFragment : Fragment(R.layout.fragment_second){
                 chungYakDay1 = chungYakDay.substring(0, 10) //TODO 청약 첫번째 날
                 chungYakDay2 = chungYakDay.substring(0, 5) + chungYakDay.substring(11)//TODO 청약 마지막 날
             }
-            var chungYakDay1_todate : LocalDate = LocalDate.parse(chungYakDay1.replace(".", "-")).minusMonths(1)
-            val chungYakDay2_todate : LocalDate = LocalDate.parse(chungYakDay2.replace(".", "-")).minusMonths(1)
-            var i : Int =1
-            while(chungYakDay1_todate <= chungYakDay2_todate){//TODO 청약기간에 모두 점을 찍어야 하므로
-                hashMap.put(all_Jusik[i].name + i.toString(), chungYakDay1_todate)
-                i+=1
-                val a = localToCal(chungYakDay1_todate)
-                chungyakdays.add(a)
-                chungYakDay1_todate = chungYakDay1_todate.plusDays(1)
+
+            val chungYakDay1_todate : LocalDate = LocalDate.parse(chungYakDay1.replace(".", "-"))
+            val chungYakDay2_todate : LocalDate = LocalDate.parse(chungYakDay2.replace(".", "-"))
+            val period = Period.between(chungYakDay1_todate, chungYakDay2_todate).toString().substring(1, 2).toInt()
+            Log.d("이지트로", chungYakDay1_todate.toString() + chungYakDay2_todate.toString() + all_Jusik[i].name)
+
+//            while(period > 0){//TODO 청약기간에 모두 점을 찍어야 하므로
+//                hashMap.put(all_Jusik[i].name + i.toString(), chungYakDay1_todate)
+//                i+=1
+//                val a = localToCal(chungYakDay1_todate)
+//                Log.d("이지트로2", chungYakDay1_todate.toString() + chungYakDay2_todate.toString() + all_Jusik[i].name)
+//                chungyakdays.add(a)
+//                chungYakDay1_todate = chungYakDay1_todate.plusDays(1)
+//                period = Period.between(chungYakDay1_todate, chungYakDay2_todate).toString().substring(1, 2).toInt()
+//                Log.d("기간", all_Jusik[i].name + chungYakDay1_todate.toString()  + chungYakDay2_todate.toString() +  period.toString())
+//            }
+            val j = localToCal(chungYakDay1_todate)
+            val p = localToCal(chungYakDay2_todate)
+            chungyakdays.add(j)
+            chungyakdays.add(p)
+            hashMap.put(all_Jusik[i].name + "첫날" ,chungYakDay1_todate)
+            hashMap.put(all_Jusik[i].name  + "마지막",chungYakDay2_todate)
+            Log.d("기간", period.toString() + all_Jusik[i].name)
+
+            if(period > 1){
+                Log.d("청약기간이 길어", period.toString() + all_Jusik[i].name)
+                if(period == 2){
+                    Log.d("청약기간이 2일이야", period.toString() + all_Jusik[i].name)
+                    for(i : Int in 1..2){
+                        val c = chungYakDay1_todate.plusDays(i.toLong())
+                        val k = localToCal(c)
+                        chungyakdays.add(k)
+                        hashMap.put(all_Jusik[i].name + i.toString() , c)
+                        Log.d("잘돌아가니?", all_Jusik[i].name + c)
+                    }
+                }
+                if(period == 3){
+                    Log.d("청약기간이 3일이야", period.toString() + all_Jusik[i].name)
+                    for(i : Int in 1..3){
+                        val c = chungYakDay1_todate.plusDays(i.toLong())
+                        val k = localToCal(c)
+                        chungyakdays.add(k)
+                        hashMap.put(all_Jusik[i].name + i.toString() , c)
+                    }
+                }
             }
+
         }
+        Log.d("happyhappy", hashMap.toString() + hashMap.size.toString())
     }
-    fun localToCal(date : LocalDate) : CalendarDay{ //TODO String --> CalendarDay
+    fun localToCal(date : LocalDate) : CalendarDay{ //TODO String --> CalendarDay(1월을 0월로 표현함)
         Log.d("change", date.toString())
         val arr = date.toString().split("-")
         Log.d("change", arr.toString())
-        val cal = CalendarDay.from(arr[0].toInt(), arr[1].toInt(), arr[2].toInt())
+        val cal = CalendarDay.from(arr[0].toInt(), arr[1].toInt()-1, arr[2].toInt())
         Log.d("change", cal.toString())
         return cal
     }
@@ -138,7 +176,7 @@ class SecondFragment : Fragment(R.layout.fragment_second){
             }
         })
         //TODO override fun onResponse 가 항상 마지막에 실행됨 --> Jusik Data가 전역변수에 담기지 않는 문제 발생 --> 콜백 처리
-        Handler().postDelayed({completion()}, 100L)
+        Handler().postDelayed({completion()}, 500L)
     }
 
 

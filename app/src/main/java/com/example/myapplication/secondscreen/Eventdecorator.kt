@@ -10,8 +10,8 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan
 
 class EventDecorator(dates: Collection<CalendarDay>, colorString : String): DayViewDecorator {
     //TODO 날짜들과 색을 지정해주기 위함
-    var colorString : String = colorString
-    var dates: HashSet<CalendarDay> = HashSet(dates)
+    val colorString : String = colorString
+    val dates: HashSet<CalendarDay> = HashSet(dates)
 
     override fun shouldDecorate(day: CalendarDay?): Boolean {
         return dates.contains(day)
