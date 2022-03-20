@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="@drawable/img"
+    android:background="@drawable/firstfragmentimg"
     android:orientation="vertical"
     android:id="@+id/ll_firstscreen_items"
     >
